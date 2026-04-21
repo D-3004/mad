@@ -1,0 +1,141 @@
+Experiment No: 1
+Title: Installation and Configuration of Flutter Environment (Linux)
+
+Aim:
+To install and configure Flutter environment on Linux system.
+
+Requirements:
+
+* Ubuntu/Linux OS
+* Internet connection
+* VS Code
+
+---
+
+### Step 1: Update System
+
+Open terminal and run:
+
+sudo apt update
+sudo apt upgrade -y
+
+---
+
+### Step 2: Install Required Tools
+
+Run:
+
+sudo apt install git curl unzip xz-utils zip libglu1-mesa -y
+
+---
+
+### Step 3: Download Flutter SDK
+
+Run:
+
+cd ~
+git clone https://github.com/flutter/flutter.git
+
+---
+
+### Step 4: Set PATH
+
+Run:
+
+export PATH="$PATH:$HOME/flutter/bin"
+
+To make permanent:
+
+echo 'export PATH="$PATH:$HOME/flutter/bin"' >> ~/.bashrc
+source ~/.bashrc
+
+---
+
+### Step 5: Verify Installation
+
+Run:
+
+flutter --version
+
+---
+
+### Step 6: Check Setup
+
+Run:
+
+flutter doctor
+
+---
+
+### Step 7: Install Android SDK (Optional)
+
+Install Android Studio:
+
+sudo snap install android-studio --classic
+
+Open Android Studio and install:
+
+* Android SDK
+* Emulator
+
+---
+
+### Step 8: Accept Licenses
+
+Run:
+
+flutter doctor --android-licenses
+
+Type:
+y
+
+---
+
+### Step 9: Fix Errors
+
+Run again:
+
+flutter doctor
+
+Ensure all checks are complete
+
+---
+
+### Step 10: Create Flutter Project
+
+Run:
+
+flutter create my_app
+cd my_app
+
+---
+
+### Step 11: Run Application
+
+Run:
+
+flutter run
+
+---
+
+### Output:
+
+Flutter environment is successfully installed and application runs on Linux system.
+
+---
+
+### Conclusion:
+
+Flutter environment is successfully configured on Linux and ready for application development.
+
+
+
+
+
+In this experiment, the Flutter development environment was systematically installed and configured on a Linux-based operating system. The process began with updating the system packages to ensure compatibility and stability, followed by the installation of essential development tools and dependencies required for Flutter to function efficiently.
+
+The Flutter Software Development Kit (SDK) was then obtained directly from its official repository and integrated into the system by configuring environment variables, enabling seamless access to Flutter commands from the terminal. The installation was verified using diagnostic commands, ensuring that all core components were properly set up.
+
+Additionally, optional components such as the Android SDK and emulator were installed to support mobile application testing and deployment. The environment was further validated using diagnostic tools that identify and resolve configuration issues, ensuring a fully functional setup.
+
+Finally, a sample Flutter project was created and executed successfully, demonstrating that the development environment is correctly configured. This setup provides a robust foundation for building cross-platform mobile applications using Flutter, enabling efficient development, testing, and deployment within a Linux environment.

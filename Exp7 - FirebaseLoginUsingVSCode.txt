@@ -1,0 +1,275 @@
+Experiment No: 7
+Title: Firebase Authentication using Flutter
+
+Aim:
+To implement user authentication using Firebase in a Flutter application.
+
+Requirements:
+
+* Flutter SDK
+* VS Code
+* Firebase Account
+* Android Emulator / Chrome
+
+---
+
+### Step 1: Create Flutter Project
+
+Open VS Code Terminal (Ctrl + `)
+
+Run:
+
+flutter create firebase_app
+cd firebase_app
+code .
+
+---
+
+### Step 2: Create Firebase Project
+
+1. Open: https://console.firebase.google.com
+2. Click "Create Project"
+3. Enter name → firebase_app
+4. Click Continue → Create
+
+---
+
+### Step 3: Add Android App
+
+1. Click Android icon 🤖
+2. Get package name from:
+
+android/app/src/main/AndroidManifest.xml
+
+Example:
+com.example.firebase_app
+
+3. Paste in Firebase
+4. Click Register
+
+---
+
+### Step 4: Download JSON
+
+Download file:
+
+google-services.json
+
+Place it in:
+
+android/app/google-services.json
+
+---
+
+### Step 5: Enable Authentication
+
+1. Firebase → Authentication
+2. Click "Get Started"
+3. Go to "Sign-in Method"
+4. Enable:
+   Email/Password
+
+---
+
+### Step 6: Add Dependencies
+
+Open pubspec.yaml
+
+Add:
+
+dependencies:
+flutter:
+sdk: flutter
+firebase_core: ^2.25.4
+firebase_auth: ^4.17.4
+
+Run in terminal:
+
+flutter pub get
+
+---
+
+### Step 7: Android Configuration
+
+Open:
+android/build.gradle
+
+Add:
+
+classpath 'com.google.gms:google-services:4.3.15'
+
+---
+
+Open:
+android/app/build.gradle
+
+Add at bottom:
+
+apply plugin: 'com.google.gms.google-services'
+
+---
+
+### Step 8: Write Code
+
+Open:
+lib/main.dart
+
+Paste:
+
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+void main() async {
+WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp();
+runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+const MyApp({super.key});
+
+@override
+Widget build(BuildContext context) {
+return const MaterialApp(
+debugShowCheckedModeBanner: false,
+home: LoginPage(),
+);
+}
+}
+
+class LoginPage extends StatefulWidget {
+const LoginPage({super.key});
+
+@override
+State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+final email = TextEditingController();
+final pass = TextEditingController();
+
+Future<void> login() async {
+try {
+await FirebaseAuth.instance.signInWithEmailAndPassword(
+email: email.text.trim(),
+password: pass.text.trim(),
+);
+
+```
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => HomePage(user: email.text),
+    ),
+  );
+} catch (e) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text("Login Failed")),
+  );
+}
+```
+
+}
+
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(title: const Text("Login")),
+body: Padding(
+padding: const EdgeInsets.all(20),
+child: Column(
+children: [
+TextField(
+controller: email,
+decoration: const InputDecoration(labelText: "Email"),
+),
+TextField(
+controller: pass,
+obscureText: true,
+decoration: const InputDecoration(labelText: "Password"),
+),
+const SizedBox(height: 20),
+ElevatedButton(
+onPressed: login,
+child: const Text("Login"),
+),
+],
+),
+),
+);
+}
+}
+
+class HomePage extends StatelessWidget {
+final String user;
+
+const HomePage({super.key, required this.user});
+
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(title: const Text("Home")),
+body: Center(
+child: Text("Welcome $user"),
+),
+);
+}
+}
+
+---
+
+### Step 9: Create Firebase User
+
+Firebase → Authentication → Users → Add User
+
+Use:
+
+Email: [admin@gmail.com](mailto:admin@gmail.com)
+Password: 1234
+
+---
+
+### Step 10: Run App
+
+Start emulator
+
+Run:
+
+flutter run
+
+---
+
+### Output:
+
+User can login using Firebase authentication.
+
+---
+
+### Conclusion:
+
+Firebase authentication is successfully implemented using Flutter.
+
+
+Description:
+
+In this experiment, user authentication was implemented in a Flutter application by integrating Firebase services. The objective was to understand how secure login functionality can be developed using cloud-based authentication mechanisms.
+
+The process began with creating a Flutter project and configuring it with Firebase by registering the application and integrating necessary configuration files such as google-services.json. Essential dependencies like firebase_core and firebase_auth were added to establish communication between the Flutter application and Firebase services.
+
+The authentication system was implemented using Email/Password sign-in, where users can securely log in using credentials stored in Firebase Authentication. Input fields were created using TextField widgets, and user inputs were managed through TextEditingController. The FirebaseAuth API was used to validate credentials and authenticate users.
+
+Error handling mechanisms were also incorporated to provide feedback in case of failed login attempts. Upon successful authentication, the application navigates to a home screen displaying a personalized welcome message, demonstrating the use of navigation along with authentication flow.
+
+This experiment highlights the integration of frontend UI with backend cloud services, showcasing how Flutter applications can leverage Firebase to implement scalable and secure user authentication systems.
+
+
+
+
+Conclusion (Improved):
+
+In this experiment, Firebase Authentication was successfully integrated into a Flutter application to enable secure user login functionality. The application allows users to sign in using email and password credentials managed through Firebase.
+
+The key tasks performed included configuring Firebase with Flutter, implementing authentication logic using FirebaseAuth, handling user input, and managing navigation after successful login. This experiment emphasizes the importance of secure authentication mechanisms in modern applications.
+
+The most important learning outcome is understanding how Flutter applications can interact with cloud-based backend services like Firebase to manage user identity and authentication efficiently. This forms a strong foundation for developing real-world applications with secure access control and user management.

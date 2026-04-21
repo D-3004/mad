@@ -1,0 +1,215 @@
+Experiment No: 11
+Title: Deploy eCommerce PWA on GitHub Pages
+
+Aim:
+To deploy a Progressive Web App (PWA) on GitHub Pages and make it accessible online. 
+
+Requirements:
+
+* Flutter SDK
+* Git installed
+* GitHub account
+* VS Code
+
+---
+
+### Step 1: Open VS Code Terminal
+
+Press: Ctrl + `
+
+---
+
+### Step 2: Create Project
+
+Run:
+
+flutter create ecommerce_pwa
+cd ecommerce_pwa
+code .
+
+---
+
+### Step 3: Enable Web
+
+Run:
+
+flutter config --enable-web
+flutter devices
+
+---
+
+### Step 4: Write Flutter Code
+
+Open:
+lib/main.dart
+
+Replace with:
+
+```dart id="ecomcode"
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ProductPage(),
+    );
+  }
+}
+
+class ProductPage extends StatelessWidget {
+  const ProductPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Ecommerce Store")),
+      body: Column(
+        children: [
+          product("Shoes", "₹2000", Icons.shopping_bag, context),
+          product("Watch", "₹1500", Icons.watch, context),
+          product("Bag", "₹1200", Icons.backpack, context),
+        ],
+      ),
+    );
+  }
+
+  Widget product(String name, String price, IconData icon, BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(10),
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(name),
+        subtitle: Text(price),
+        trailing: ElevatedButton(
+          child: const Text("Buy"),
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("$name added to cart")),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+### Step 5: Run App
+
+Run:
+
+flutter run -d chrome
+
+---
+
+### Step 6: Build Web App
+
+Run:
+
+flutter build web
+
+---
+
+### Step 7: Fix for GitHub Pages
+
+Run:
+
+flutter build web --base-href "/ecommerce_pwa/"
+
+---
+
+### Step 8: Initialize Git
+
+Run:
+
+git init
+git add .
+git commit -m "Initial commit"
+
+---
+
+### Step 9: Create GitHub Repository
+
+Go to GitHub
+
+Create new repository
+
+Name:
+ecommerce-pwa
+
+---
+
+### Step 10: Push Code
+
+Run:
+
+git remote add origin https://github.com/your-username/ecommerce-pwa.git
+git branch -M main
+git push -u origin main
+
+---
+
+### Step 11: Enable GitHub Pages
+
+1. Open repository on GitHub
+2. Go to Settings
+3. Click Pages
+4. Select:
+
+   * Source: Deploy from branch
+   * Branch: main
+   * Folder: / (root)
+5. Click Save
+
+---
+
+### Step 12: Open Website
+
+After few seconds, link will be generated:
+
+https://your-username.github.io/ecommerce_pwa/
+
+---
+
+### Output:
+
+The eCommerce PWA is successfully deployed and accessible online. 
+
+---
+
+### Conclusion:
+
+The PWA is successfully deployed on GitHub Pages and can be accessed globally. 
+
+
+Description:
+
+In this experiment, a Progressive Web App (PWA) was developed using Flutter and successfully deployed on GitHub Pages, making it accessible over the internet. The objective was to understand the complete deployment lifecycle of a Flutter web application, from development to public hosting.
+
+The experiment began with creating a Flutter project and enabling web support to build a browser-compatible application. A simple eCommerce interface was designed using Flutter widgets such as Scaffold, AppBar, Card, and ListTile, allowing users to view products and simulate purchase actions through interactive buttons.
+
+After verifying the application locally using a web browser, the project was built using the flutter build web command to generate optimized static files. Special configuration using the --base-href flag was applied to ensure proper routing when hosting on GitHub Pages.
+
+Version control was implemented using Git, and the project was uploaded to a remote repository on GitHub. The GitHub Pages feature was then enabled to host the web build directly from the repository. Once deployed, the application became accessible via a public URL, demonstrating real-world deployment practices.
+
+This experiment highlights the integration of development, build optimization, version control, and cloud-based hosting to deliver a fully functional web application.
+
+
+
+Conclusion (Improved):
+
+In this experiment, a Flutter-based eCommerce Progressive Web App was successfully deployed on GitHub Pages and made accessible online. The application demonstrates how Flutter web apps can be hosted using static site hosting platforms.
+
+The key tasks performed included building the web application, configuring it for deployment, managing version control using Git, and enabling hosting through GitHub Pages. This experiment emphasizes the importance of deployment in the application development lifecycle.
+
+The most important learning outcome is understanding how to take a locally developed Flutter web application and make it globally accessible using platforms like GitHub Pages. This provides a strong foundation for deploying real-world web and PWA applications efficiently.
